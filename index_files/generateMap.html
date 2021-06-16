@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- saved from url=(0268)https://www.editmysite.com/ajax/apps/generateMap.php?map=google&elementid=540615800768626858&ineditor=0&control=3&width=auto&height=150px&overviewmap=0&scalecontrol=0&typecontrol=0&zoom=15&long=120.97030999999993&lat=24.804875&domain=www&point=1&align=1&reseller=false -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>.gm-style-pbc{transition:opacity ease-in-out;background-color:rgba(0,0,0,0.45);text-align:center}.gm-style-pbt{font-size:22px;color:white;font-family:Roboto,Arial,sans-serif;position:relative;margin:0;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
+</style><style>.gm-style img{max-width: none;}.gm-style {font: 400 11px Roboto, Arial, sans-serif; text-decoration: none;}</style>
+		<title>Google Maps Output</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		
+		<style>
+			html, body, #mapContainer {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+			}
+
+			#mapContainer {
+				width: 100%;
+				text-align: center;
+			}
+
+			a {
+				color: #06C;
+				text-decoration: none;
+			}
+
+			a:visited {
+				color: #06C;
+			}
+		</style>
+		<script type="text/javascript" src="./js"></script>
+		<script type="text/javascript">
+			//<![CDATA[
+
+			// send a cross domain iframe mesage to the parent to resize the frame to this height
+			var resizeMessage = function(event) {
+				var imageHeight = document.getElementById('mapContainer').clientHeight;
+
+				window.parent.postMessage(
+					imageHeight,
+					'*'
+				);
+			};
+
+			function setMarkerIcon(point) {
+				const svg = createMarkerSvg();
+				point.setIcon({
+					url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg),
+					scaledSize: new google.maps.Size(29, 48),
+				});
+			}
+
+			function createMarkerSvg() {
+				return '<svg width="29" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity=".1" d="M14.277 48c2.38 0 4.307-1.473 4.307-3.29s-1.928-3.29-4.306-3.29c-2.38 0-4.307 1.473-4.307 3.29S11.899 48 14.277 48z" fill="#000"/><path opacity=".1" d="M14.344 46.764c1.474 0 2.668-.911 2.668-2.036 0-1.124-1.194-2.035-2.668-2.035-1.474 0-2.668.911-2.668 2.035 0 1.125 1.194 2.036 2.668 2.036z" fill="#000"/><path d="M4.672 4.359A13.694 13.694 0 0 1 14.29.378c1.794.002 3.57.355 5.227 1.039a13.655 13.655 0 0 1 4.429 2.95 13.557 13.557 0 0 1 2.953 4.409 13.489 13.489 0 0 1 1.029 5.195c-.011.749-.087 1.496-.226 2.232h0l-.002.008a13.392 13.392 0 0 1-2.153 5.35l-.007.01-.006.01a74.078 74.078 0 0 1-1.936 3.095l-.194.279c-4.03 5.783-8.12 11.654-8.407 19.443a1.177 1.177 0 0 1-.283.522c-.157.168-.318.243-.447.243-.298 0-.605-.217-.731-.771-.37-7.851-4.415-13.823-8.543-19.714-.719-1.12-1.389-2.169-1.981-3.172l-.006-.01-.006-.01A13.128 13.128 0 0 1 .91 16.14l-.001-.008-.002-.008a11.762 11.762 0 0 1-.225-2.205 13.52 13.52 0 0 1 3.99-9.56z" fill="#D85040" stroke="#C74D40" stroke-width=".756"/><path d="M14.3 2.454c2.443.036 4.841.667 6.984 1.837a14.933 14.933 0 0 1 5.305 4.874A13.118 13.118 0 0 0 21.744 3.1 13.244 13.244 0 0 0 14.299.811c-2.657 0-5.252.798-7.445 2.288A13.119 13.119 0 0 0 2.01 9.165a14.933 14.933 0 0 1 5.305-4.874c2.142-1.17 4.54-1.801 6.984-1.837z" fill="rgba(255, 255, 255, 0.2)"/><path d="M14.206 18.876a5.06 5.06 0 0 0 2.803-.84 5.013 5.013 0 0 0 1.86-2.245 4.978 4.978 0 0 0-1.09-5.461 5.067 5.067 0 0 0-5.495-1.083 5.03 5.03 0 0 0-2.26 1.848 4.984 4.984 0 0 0 .631 6.315 5.054 5.054 0 0 0 3.551 1.466z" fill="#8A1E16"/></svg>';
+			}
+
+			function gLoad() {
+				var touchSupported = (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch),
+						forceTouch = false;
+
+				var forceMapDrag = false;
+
+				var myLatLng = new google.maps.LatLng(24.804875, 120.97030999999993);
+				var mapOptions = {
+					scrollwheel: false,
+					center: myLatLng,
+					zoom: 15,
+					panControl: false, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.SMALL },
+					scaleControl: false,
+					mapTypeControl: false,
+					streetViewControl: false,
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					draggable: false				};
+
+				if ((touchSupported || forceTouch) && !forceMapDrag) {
+					mapOptions.draggable = false;
+					mapOptions.panControl = false;
+					mapOptions.scrollwheel = false;
+					mapOptions.zoomControlOptions = {style: google.maps.ZoomControlStyle.SMALL};
+					mapOptions.zoomControl = true;
+				}
+
+				// Use pre-v3.22 controls until the element can be updated with options for the new controls
+				google.maps.controlStyle = 'azteca';
+
+				function renderMap(options) {
+					var map = new google.maps.Map(document.getElementById("map"), options);
+					var hasMapPoint = true;
+
+					var isMarkerFixedInCenter = false;
+
+					if (hasMapPoint) {
+						var point = new google.maps.Marker({
+							position: myLatLng,
+							map: map,
+							optimized: false
+						});
+						setMarkerIcon(point);
+					}
+
+					
+					// Maps loaded hidden (like in an accordion) don't center property as their width is often detected as 0.
+					// Detect when the iFrame "resizes" and reset the center
+					google.maps.event.addDomListener(window, 'resize', function() {
+						google.maps.event.trigger(map, 'resize');
+						map.setCenter(myLatLng);
+					});
+					var SET_TIMEOUT_MS = 200;
+					if (isMarkerFixedInCenter) {
+						google.maps.event.addListener(map, 'center_changed', function() {
+							// 0.2 seconds after the center of the map has changed,
+							// set back the marker position.
+							window.setTimeout(function() {
+								var center = map.getCenter();
+								point.setPosition(center);
+							}, SET_TIMEOUT_MS);
+						});
+
+						google.maps.event.addListener(map, 'dragend', function(evt) {
+							// Wait for the center to be changed before saving the Lat/Lng
+							window.setTimeout(function() {
+								var url = (window.location != window.parent.location)
+									? document.referrer
+									: document.location.href;
+								var center = map.getCenter();
+								var postData = {
+									lat: center.lat(),
+									lng: center.lng(),
+									message: 'marker_position_update_540615800768626858'
+								}
+								window.parent.postMessage(JSON.stringify(postData), url);
+							}, SET_TIMEOUT_MS + 25);
+
+						});
+					}
+
+					map.addListener('click', function() {
+						var url = (window.location != window.parent.location)
+							? document.referrer
+							: document.location.href;
+						window.parent.postMessage('map_click_event_540615800768626858', url);
+					});
+				};
+
+				var mapZoomScale = 0;
+				if (mapZoomScale > 0) {
+					var maxZoomService = new google.maps.MaxZoomService();
+					maxZoomService.getMaxZoomAtLatLng({
+						lat: parseFloat(24.804875),
+						lng: parseFloat(120.97030999999993),
+					}, function (response)  {
+						const success = response.status === 'OK';
+						var maxZoomLevel = success ? response.zoom : 18;
+						var zoomLevel = Math.round(maxZoomLevel * (mapZoomScale / 100));
+						zoomLevel = zoomLevel < 1 ? mapOptions.zoom : zoomLevel;
+						mapOptions.zoom = zoomLevel;
+						renderMap(mapOptions);
+					});
+				} else {
+					renderMap(mapOptions);
+				}
+			}
+
+			//]]>
+		</script>
+
+	<script type="text/javascript" charset="UTF-8" src="./common.js.download"></script><script type="text/javascript" charset="UTF-8" src="./util.js.download"></script><script type="text/javascript" charset="UTF-8" src="./map.js.download"></script><script type="text/javascript" charset="UTF-8" src="./marker.js.download"></script><script type="text/javascript" charset="UTF-8" src="./onion.js.download"></script></head>
+	<body onload="gLoad();" style="margin: 0; padding: 0;">
+
+	<div id="mapContainer">
+		<div id="map" style="height: 150px; max-width: 100%; position: relative; overflow: hidden;"><div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);"><div class="gm-style" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px;"><div tabindex="0" aria-label="Map" aria-roledescription="map" role="group" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default; touch-action: pan-x pan-y;"><div style="z-index: 1; position: absolute; left: 50%; top: 50%; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: -1;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: -1;"><div style="position: absolute; left: 0px; top: 0px;"><img src="./StaticMapService.GetMapImage" style="width: 503px; height: 150px;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"></div></div><div class="gm-style-pbc" style="z-index: 2; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; opacity: 0;"><p class="gm-style-pbt"></p></div><div style="z-index: 3; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; touch-action: pan-x pan-y;"><div style="z-index: 4; position: absolute; left: 50%; top: 50%; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div></div></div></div><iframe aria-hidden="true" frameborder="0" tabindex="-1" style="z-index: -1; position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; border: none;" src="./saved_resource.html"></iframe><div style="pointer-events: none; width: 100%; height: 100%; box-sizing: border-box; position: absolute; z-index: 1000002; opacity: 0; border: 2px solid rgb(26, 115, 232);"></div></div></div></div>
+	</div>
+
+	
+	
+	<div style="position: absolute; left: 0px; top: -2px; height: 1px; overflow: hidden; visibility: hidden; width: 1px;"><span style="position: absolute; font-size: 300px; width: auto; height: auto; margin: 0px; padding: 0px; font-family: Roboto, Arial, sans-serif;">BESbswy</span></div></body></html>
